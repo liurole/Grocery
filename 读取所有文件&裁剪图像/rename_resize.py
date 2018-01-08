@@ -34,7 +34,7 @@ def delete_file_folder(src):
             delete_file_folder(itemsrc)
 
 
-def resizeImg(in_dir, out_dir, width = 400, height = 300):
+def resizeImg(in_dir, out_dir, width = 480, height = 300):
     for file in os.listdir(in_dir):
         name = in_dir + file
         image = cv2.imread(name)
@@ -52,8 +52,8 @@ def resizeImg(in_dir, out_dir, width = 400, height = 300):
 
 if __name__ == '__main__':
     
-    data_dir = './data/'
-    dest_dir = './dest/'
+    data_dir = './destold/'
+    dest_dir = './1/'
     
     #rename(data_dir)
     delete_file_folder(dest_dir) 
