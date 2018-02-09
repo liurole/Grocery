@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import xlrd 
+import codecs
+import csv
 
 def open_excel(file):  
     data = xlrd.open_workbook(file)  
@@ -46,19 +48,34 @@ def check(domain):
 #保存可注册域名
 def domain(names):
     oklist = []
+    with codecs.open('result.csv', "w", 'utf_8_sig') as f:
+        writer = csv.writer(f)
+        row = []
+        row.append('未注册域名')
+        writer.writerow(row) 
+        f.close()
+        
     for name in names:
-        domain = name+'.com' 
-        time.sleep(1)
-        num = check(domain)
-        if num != None:
+        with codecs.open('result.csv', "a", 'utf_8_sig') as f:
+            writer = csv.writer(f)
+            row = []
+            
+            domain = name+'.com' 
+            time.sleep(1)
+            num = check(domain)
+#            if num != None:
+#                if num == '210':
+#                    oklist.append(domain)
+#                    row.append(domain)
+#                    writer.writerow(row) 
+#            else:
+#                break
             if num == '210':
                 oklist.append(domain)
-        else:
-            break
-    with open('oklist.txt','w+') as ok:
-        for k in oklist:
-            s = k+'\n'
-            ok.write(s)
+                row.append(domain)
+                writer.writerow(row)             
+            f.close()
+        
     return oklist
 
 # 组成name
@@ -75,6 +92,6 @@ def domainlist(parts):
     
 if __name__ == '__main__':
     
-    parts = excel_table_byindex('域名.xlsx') 
+    parts = excel_table_byindex('域名.xlsx', 0, 1) 
     names = domainlist(parts)
     oklist = domain(names)
