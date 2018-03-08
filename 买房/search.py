@@ -55,7 +55,7 @@ if __name__ == '__main__':
         temp = path[i]
         date = temp.split('.')[0]
         types = temp.split('.')[1]
-        if types == 'xlsx' and date != '江山汇总':
+        if types == 'xlsx' and (date != '江山汇总' or date != '地区分类'):
             wb = openpyxl.reader.excel.load_workbook(temp)
             sheetnames = wb.get_sheet_names()  
             ws = wb.get_sheet_by_name(sheetnames[0])        
